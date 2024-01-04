@@ -1,0 +1,1355 @@
+//***********************************
+//*  项目：Project Gobang
+//*  程序：main.cpp                                       *
+//*  功能：实现简单的五子棋小游戏                         *
+//*        包含简单的PVP，PVE，EVE模式，并能够进行复盘    *
+//*  作者：王奕澄，最后修改时间：2023年12月13日           *  
+//*  学号：202200460093
+//************************************
+
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<graphics.h>
+#include<time.h>
+#include"show.h"
+#include"play.h"
+
+#define ROWS 15         //行数，国际标准棋盘15x15
+#define COLUMNS 15      //列数，国际标准棋盘15x15
+#define INTERVAL 30     //棋盘间隔
+#define black 1         //黑棋
+#define white 2         //白棋
+#define xian 1          //先手
+#define hou 0           //后手
+#define easy 100        //简单模式
+#define medium 10       //中等模式
+#define hard 1          //困难模式
+
+IMAGE background;//背景图片
+int mode = 0;//0代表初始，1、2、3、4为四个功能
+int chessboard[ROWS][COLUMNS];//定义棋盘
+bool heqi=0;//判断是否和棋
+int result=0;//判断点击了确定或取消,0：未操作
+int dierbu = 0;//0：走下一步；2：IDCANCEL终止
+int level1 = 0;//设置难度：easy简单，medium中等，hard困难(有宏定义)
+int panduan = 0;//判断是否设置了难度
+
+
+struct Order
+{
+	bool ischoose;
+	int order;    //先手为1（xian），后手为0（hou）
+}orders;
+
+struct Level
+{
+	bool ischoose;
+	int level;   //easy简单，medium中等，hard困难
+}levels;
+
+struct Button
+{
+	int x;     //第几个按钮
+	bool flag; //是否标红
+}button = {-1,false};
+
+struct play  //pve和eve复用一个结构体
+{
+	int AI;    //AI或ai1
+	int player;//玩家或ai2
+	int turn;  //1:到你了;0:不到你;3:结束（因为取消为2所以不能用2了）
+}pve;
+
+
+struct Pos 
+{
+	int row;
+	int col;
+	bool isshow;//是否显示落子位置
+	int player;
+}pos = { -1,-1,false,1 };//显示行列与判断
+
+void open_welcome_interface()    //开启游戏界面
+{
+	initgraph(800, 800);
+	loadimage(&background, "background.jpg", 800, 800);
+	putimage(0, 0, &background);
+}
+
+void init_chessboard()   //初始化棋盘
+{
+	setbkcolor(YELLOW);//设置背景颜色为黄色
+	cleardevice();
+	for (int i = 0; i < 15; i++)
+	{
+		setlinestyle(PS_SOLID, 2);//线形为实线，宽度为2
+		setlinecolor(BLACK);//线的颜色设置为黑色
+		line(90, 90 + i * INTERVAL, 90 + 14 * INTERVAL, 90 + i * INTERVAL);//横线
+		line(90 + i * INTERVAL, 90, 90 + i * INTERVAL, 90 + 14 * INTERVAL);//竖线
+	}
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(BLACK);
+	rectangle(90, 90, 90 + 14 * INTERVAL, 90 + 14 * INTERVAL);//边框适当加粗
+	setfillcolor(BLACK);
+	//棋盘上有五个点需要重点标记，符合棋盘特征
+	solidcircle(90 + 7 * INTERVAL, 90 + 7 * INTERVAL, 5);
+	solidcircle(90 + 3 * INTERVAL, 90 + 3 * INTERVAL, 5);
+	solidcircle(90 + 11 * INTERVAL, 90 + 11 * INTERVAL, 5);
+	solidcircle(90 + 3 * INTERVAL, 90 + 11 * INTERVAL, 5);
+	solidcircle(90 + 11 * INTERVAL, 90 + 3 * INTERVAL, 5);
+}
+
+
+void set_button_on_mode()//设置模式选择页面界面上相应的按钮
+{
+	setbkmode(TRANSPARENT);
+	settextstyle(70, 40, _T("宋体"));//设置文字的高度，宽度，字体
+	settextcolor(WHITE);
+	outtextxy(155, 30, "五子棋 Gobang");//游戏说明
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(WHITE);
+	rectangle(240, 120, 480, 200);
+	setfillcolor(BLACK);
+	fillrectangle(240, 120, 480, 200);
+	settextstyle(76, 55, _T("Consolas"));
+	settextcolor(WHITE);
+	outtextxy(265, 122, "PVP");//diyige
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(WHITE);
+	rectangle(240, 200, 480, 300);
+	setfillcolor(BLACK);
+	fillrectangle(240, 200, 480, 300);
+	settextstyle(76, 55, _T("Consolas"));
+	settextcolor(WHITE);
+	outtextxy(265, 202, "PVE");//dierge
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(WHITE);
+	rectangle(240, 280, 480, 400);
+	setfillcolor(BLACK);
+	fillrectangle(240, 280, 480, 400);
+	settextstyle(76, 55, _T("Consolas"));
+	settextcolor(WHITE);
+	outtextxy(265, 282, "EVE");//disange
+	setlinestyle(PS_SOLID, 4);
+	setlinecolor(WHITE);
+	rectangle(240, 360, 480, 440);
+	setfillcolor(BLACK);
+	fillrectangle(240, 360, 480, 440);
+	settextstyle(76, 40, _T("Consolas"));
+	settextcolor(WHITE);
+	outtextxy(270, 362, "复盘");//disige
+	settextstyle(30, 15, _T("Times New Roman"));
+	settextcolor(WHITE);
+	setlinecolor(WHITE);
+	rectangle(450, 720, 780, 770);
+	setfillcolor(BLACK);
+	fillrectangle(450, 720, 790, 780);
+	outtextxy(450, 720, "Made by Orange Wang");//版权声明
+	outtextxy(450, 750, "王奕澄 202200460093");
+}
+
+void choose_level(ExMessage* msg2) //选择难度
+{
+	if (msg2->message == WM_MOUSEMOVE)
+	{
+		if (msg2->x >= 576 && msg2->x <= 744)
+		{
+			if (msg2->y >= 196 && msg2->y <= 295)
+			{
+				levels.level = easy;
+				levels.ischoose = true;
+			}
+			else if (msg2->y >= 296 && msg2->y <= 395)
+			{
+				levels.level = medium;
+				levels.ischoose = true;
+			}
+			else if (msg2->y >= 396 && msg2->y <= 495)
+			{
+				levels.level = hard;
+				levels.ischoose = true;
+			}
+		}
+	}
+	if (msg2->message == WM_LBUTTONDOWN)//选择(已经选择了) 
+	{
+		panduan = 1;
+		result = 0;
+		levels.ischoose = false;
+	}
+}
+
+void PVE_level_button()//加载PVE中选择难度的按钮
+{
+	settextstyle(50, 20, 0);
+	settextcolor(BLACK);
+	outtextxy(520, 100, "请选择难度：");
+	settextstyle(70, 30, 0);
+	settextcolor(BLACK);
+	outtextxy(570, 200, "简单");
+	outtextxy(570, 300, "中等");
+	outtextxy(570, 400, "困难");
+}
+
+void draw0() 
+{
+	putimage(0, 0, &background);
+	set_button_on_mode();
+	if (button.flag) 
+	{
+		setlinestyle(PS_SOLID, 4);
+		setlinecolor(RED);
+		rectangle(240, 120 + button.x * 80, 480, 200 + button.x * 80);
+	}
+}
+
+void draw_PVP()
+{
+	putimage(0, 0, &background);
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID, 2);
+
+	init_chessboard();
+	if (mode == 1)
+	{
+		if (pos.player == black)
+		{
+			settextstyle(40, 18, 0);
+			settextcolor(BLACK);
+			outtextxy(580, 250, "该黑棋了");
+		}
+		if (pos.player == white)
+		{
+			settextstyle(40, 18, 0);
+			settextcolor(BLACK);
+			outtextxy(580, 250, "该白棋了");
+		}
+	}
+	for (int i = 0; i < ROWS; i++) //在棋盘上绘制棋子
+	{
+		for (int j = 0; j < COLUMNS; j++) 
+		{
+			if (chessboard[i][j] == black) 
+			{
+				setfillcolor(BLACK);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+			else if (chessboard[i][j] == white) 
+			{
+				setfillcolor(WHITE);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+		}
+	}
+	if (pos.isshow) //落子位置显示
+	{
+		setlinestyle(PS_SOLID, 3);
+		setlinecolor(BLUE);
+		rectangle(pos.col * INTERVAL + 78, pos.row * INTERVAL + 78, pos.col * INTERVAL + 102, pos.row * INTERVAL + 102);
+	}
+}
+
+void PVE_order_button()//加载PVE选择先后手的按钮
+{
+	settextstyle(70, 30, 0);
+	settextcolor(BLACK);
+	outtextxy(550, 100, "请选择：");
+	settextstyle(70, 30, 0);
+	settextcolor(BLACK);
+	outtextxy(570, 200, "先手");
+	outtextxy(570, 300, "后手");	
+}
+
+
+
+void draw_PVE()
+{
+	putimage(0, 0, &background);
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID, 2);
+
+	init_chessboard();
+	if (result==0&&panduan == 0)
+	{
+		PVE_level_button();
+		if (levels.ischoose)
+		{
+			if (levels.level == easy)
+			{
+				setlinestyle(PS_SOLID, 3);
+				setlinecolor(RED);
+				rectangle(570, 200, 730, 280);
+			}
+			if (levels.level == medium)
+			{
+				setlinestyle(PS_SOLID, 3);
+				setlinecolor(RED);
+				rectangle(570, 300, 730, 380);
+			}
+			if (levels.level == hard)
+			{
+				setlinestyle(PS_SOLID, 3);
+				setlinecolor(RED);
+				rectangle(570, 400, 730, 480);
+			}
+		}
+
+	}
+
+	if (mode == 2&&panduan!=0) 
+	{
+		if (pve.turn == 1 && pve.player == black) //提示语
+		{
+			settextstyle(40, 18, 0);
+			settextcolor(BLACK);
+			outtextxy(580, 250, "该黑棋了");
+		}
+		if (pve.turn == 1 && pve.player == white) 
+		{
+			settextstyle(40, 18, 0);
+			settextcolor(BLACK);
+			outtextxy(580, 250, "该白棋了");
+		}
+	}
+	
+	if (result == 0&&panduan!=0) 
+	{
+		PVE_order_button();
+		if (orders.ischoose) 
+		{
+			if (orders.order == 1) 
+			{
+				setlinestyle(PS_SOLID, 3);
+				setlinecolor(RED);
+				rectangle(570, 200, 730, 280);
+			}
+			if (orders.order == 2) 
+			{
+				setlinestyle(PS_SOLID, 3);
+				setlinecolor(RED);
+				rectangle(570, 300, 730, 380);
+			}
+		}
+	}
+
+	for (int i = 0; i < ROWS; i++) //在棋盘上绘制棋子
+	{
+		for (int j = 0; j < COLUMNS; j++)
+		{
+			if (chessboard[i][j] == black)
+			{
+				setfillcolor(BLACK);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+			else if (chessboard[i][j] == white) 
+			{
+				setfillcolor(WHITE);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+		}
+	}
+	if (pos.isshow) //蓝框落子位置显示
+	{
+		setlinestyle(PS_SOLID, 3);
+		setlinecolor(BLUE);
+		rectangle(pos.col * INTERVAL + 78, pos.row * INTERVAL + 78, pos.col * INTERVAL + 102, pos.row * INTERVAL + 102);
+	}
+}
+
+void draw_fupan()
+{
+	putimage(0, 0, &background);
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID, 2);
+
+	init_chessboard();
+	for (int i = 0; i < ROWS; i++) //在棋盘上绘制棋子
+	{
+		for (int j = 0; j < COLUMNS; j++)
+		{
+			if (chessboard[i][j] == black)
+			{
+				setfillcolor(BLACK);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+			else if (chessboard[i][j] == white) 
+			{
+				setfillcolor(WHITE);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+		}
+	}
+	if (pos.isshow) //落子位置显示
+	{
+		setlinestyle(PS_SOLID, 3);
+		setlinecolor(BLUE);
+		rectangle(pos.col * INTERVAL + 78, pos.row * INTERVAL + 78, pos.col * INTERVAL + 102, pos.row * INTERVAL + 102);
+	}
+}
+
+void choose_order(ExMessage* msg2) //选择先后手
+{
+	if (msg2->message == WM_MOUSEMOVE) 
+	{
+		if (msg2->x >= 576 && msg2->x <= 744) 
+		{
+			if (msg2->y >= 196 && msg2->y <= 284) 
+			{
+				orders.ischoose = true;
+				orders.order = 1;
+			}
+		}
+		if (msg2->x >= 576 && msg2->x <= 744) 
+		{
+			if (msg2->y >= 296 && msg2->y <= 384) 
+			{
+				orders.ischoose = true;
+				orders.order = 2;
+			}
+		}
+	}
+	if (msg2->message == WM_LBUTTONDOWN)//选择 
+	{
+		if (orders.order == 1) 
+		{
+			result = IDCANCEL;
+			orders.ischoose = false;
+		}
+		if (orders.order == 2) 
+		{
+			result = IDOK;
+			orders.ischoose = false;
+		}
+		
+	}
+}
+
+bool judge(int r, int c) //判断游戏是否结束
+{
+	int who = pos.player;//判断玩家是否获胜
+	//横向判断
+	for (int i = c - 4; i <= c; i++)
+	{
+		if (i >= 0 && i <= 10)
+		{
+			if (chessboard[r][i] == who && chessboard[r][i + 1] == who && chessboard[r][i + 2] == who && chessboard[r][i + 3] == who && chessboard[r][i + 4] == who)
+			{
+				return true;
+			}
+		}
+	}
+	//纵向判断
+	for (int i = r - 4; i <= r; i++)
+	{
+		if (i >= 0 && i <= 10)
+		{
+			if (chessboard[i][c] == who && chessboard[i + 1][c] == who && chessboard[i + 2][c] == who && chessboard[i + 3][c] == who && chessboard[i + 4][c] == who)
+			{
+				return true;
+			}
+		}
+	}
+	//左下右上判断
+	for (int i = r - 4, j = c + 4; i <= r; i++, j--)
+	{
+		if (i <= 10 && i >= 0 && j <= 14 && j >= 4)
+		{
+			if (chessboard[i][j] == who && chessboard[i + 1][j - 1] == who && chessboard[i + 2][j - 2] == who && chessboard[i + 3][j - 3] == who && chessboard[i + 4][j - 4] == who)
+			{
+				return true;
+			}
+		}
+	}
+	//左上右下判断
+	for (int i = r - 4, j = c - 4; i <= r; i++, j++)
+	{
+		if (i <= 10 && i >= 0 && j <= 10 && j >= 0)
+		{
+			if (chessboard[i][j] == who && chessboard[i + 1][j + 1] == who && chessboard[i + 2][j + 2] == who && chessboard[i + 3][j + 3] == who && chessboard[i + 4][j + 4] == who)
+			{
+				return true;
+			}
+		}
+	}
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 15; j++)
+		{
+			if (chessboard[i][j] == 0)
+			{
+				return false;
+			}
+			if (i == 14 && j == 14)
+			{
+				heqi = true;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void pve_press(ExMessage* msg) 
+{
+	if (pos.isshow == true) 
+	{
+		if (msg->message == WM_LBUTTONDOWN) 
+		{
+			pos.player = pve.player;
+			if (chessboard[pos.row][pos.col] != 0)
+			{
+				MessageBox(GetHWnd(), "这里不能放棋子嗷！", "警告", MB_OKCANCEL);
+				return;
+			}
+			FILE* fp;
+			fp = fopen("duiju.txt", "a");
+			fprintf(fp, "%d\n%d\n%d\n", pos.row, pos.col, pos.player);
+			fclose(fp);
+			chessboard[pos.row][pos.col] = pve.player;
+			pve.turn = 0;
+		}
+	}
+	if (judge(pos.row, pos.col)!=false) 
+	{
+		pos.isshow = false;
+		draw_PVE();
+		int d = MessageBox(GetHWnd(), "游戏结束", "你赢了，是否再来一把", MB_OKCANCEL);
+		if (d == IDOK) 
+		{
+			result = 0;
+			for (int i = 0; i < 15; i++) 
+			{
+				for (int j = 0; j < 15; j++) 
+				{
+					chessboard[i][j] = 0;//清空棋盘
+				}
+			}
+			pve.turn = 3;
+			panduan = 0;
+			return;
+		}
+		if (d == IDCANCEL) 
+		{
+			result = 0;
+			for (int i = 0; i < 15; i++) 
+			{
+				for (int j = 0; j < 15; j++) 
+				{
+					chessboard[i][j] = 0;
+				}
+			}
+			mode = 0;
+			panduan = 0;
+		}
+	}
+}
+
+void draw_EVE()
+{
+	putimage(0, 0, &background);
+	setlinecolor(BLACK);
+	setlinestyle(PS_SOLID, 2);
+
+	init_chessboard();
+	for (int i = 0; i < ROWS; i++) //在棋盘上绘制棋子
+	{
+		for (int j = 0; j < COLUMNS; j++)
+		{
+			if (chessboard[i][j] == black)
+			{
+				setfillcolor(BLACK);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+			else if (chessboard[i][j] == white) 
+			{
+				setfillcolor(WHITE);
+				solidcircle(90 + j * INTERVAL, 90 + i * INTERVAL, 13);
+			}
+		}
+	}
+	if (pos.isshow) //落子位置显示
+	{
+		setlinestyle(PS_SOLID, 3);
+		setlinecolor(BLUE);
+		rectangle(pos.col * INTERVAL + 78, pos.row * INTERVAL + 78, pos.col * INTERVAL + 102, pos.row * INTERVAL + 102);
+	}
+}
+
+
+void button_move(ExMessage* msg)//标红鼠标所指位置处的按钮
+{
+	for (int i = 0; i < 4; i++) //一共四个按钮
+	{
+		if (msg->x >= 239 && msg->x <= 481) //x坐标的范围
+		{
+			if (msg->y >= 119 + i * 80 && msg->y <= 201 + i * 80) //y坐标的范围
+			{
+				button.flag = true;
+				button.x = i;
+			}
+		}
+	}
+}
+
+void button_down(ExMessage* msg)
+{
+	mode = button.x + 1;
+	if (mode != 4)
+	{
+		FILE* fp;
+		fp = fopen("duiju.txt", "r");
+		if (fp==NULL)//r:文件必须存在，只允许读
+		{
+			int e=MessageBox(GetHWnd(), "存储对局信息的文件不存在或打开失败，即将为您创建！", "提醒", MB_OK);
+			fp = fopen("duiju.txt", "w");
+			fclose(fp);		
+		}
+		else
+		{
+			fp = fopen("duiju.txt", "w");//文件存在的话先把权限改为w,用"w"打开的文件只能向该文件写入。若打开的文件不存在，则以指定的文件名建立该文件，若打开的文件已经存在，则将该文件删去，重建一个新文件。
+			fclose(fp);
+		}
+	}
+}
+
+void mouse_move(ExMessage* msg) 
+{
+	pos.isshow = false;
+	for (int i = 0; i < ROWS; i++) 
+	{
+		for (int j = 0; j < COLUMNS; j++) 
+		{
+			int gridx = j * INTERVAL + 90;
+			int gridy = i * INTERVAL + 90;
+			if (abs(msg->x - gridx) <= 12 && abs(msg->y - gridy) <= 12) 
+			{
+				pos.isshow = true;
+				pos.row = i;
+				pos.col = j;
+			}
+		}
+	}
+}
+
+void mouse_press(ExMessage* msg) 
+{
+	if (pos.isshow == true) 
+	{
+		if (msg->message == WM_LBUTTONDOWN) 
+		{
+			if (chessboard[pos.row][pos.col] != 0)//点击的位置已有棋子
+			{
+				MessageBox(GetHWnd(), "这里不能放棋子嗷！", "警告", MB_OKCANCEL);
+				return;
+			}				
+			chessboard[pos.row][pos.col] = pos.player;
+			FILE* fp; //记录对局信息
+			fp = fopen("duiju.txt", "a");//打开或新建一个文本文件，可以读，但只允许在文件末尾追写
+			fprintf(fp, "%d %d %d\n", pos.row, pos.col, pos.player);
+			fclose(fp);
+			if (judge(pos.row, pos.col)) 
+			{
+				pos.isshow = false;
+				if (pos.player == black) 
+				{
+					draw_PVP();
+					int conti = MessageBox(GetHWnd(), "黑棋赢了,是否再来一局", "游戏结束", MB_OKCANCEL);
+					if (conti == IDOK) //再来一局
+					{
+						fp = fopen("duiju.txt", "w");
+						fclose(fp);
+						for (int i = 0; i < 15; i++) 
+						{
+							for (int j = 0; j < 15; j++) 
+							{
+								chessboard[i][j] = 0;     //清空棋盘
+							}
+						}
+						return;
+					}
+					if (conti == IDCANCEL) 
+					{
+						for (int i = 0; i < 15; i++) 
+						{
+							for (int j = 0; j < 15; j++) 
+							{
+								chessboard[i][j] = 0;
+							}
+						}
+						mode= 0;
+						return;
+					}
+				}
+				if (pos.player == white) 
+				{
+					draw_PVP();
+					int conti = MessageBox(GetHWnd(), "白棋赢了,是否再来一局", "游戏结束", MB_OKCANCEL);
+					if (conti == IDOK) //再来一局
+					{
+						for (int i = 0; i < 15; i++) 
+						{
+							for (int j = 0; j < 15; j++) 
+							{
+								chessboard[i][j] = 0;
+							}
+						}
+					}
+					if (conti == IDCANCEL) 
+					{
+						for (int i = 0; i < 15; i++) 
+						{
+							for (int j = 0; j < 15; j++) 
+							{
+								chessboard[i][j] = 0;
+							}
+						}
+						mode = 0;
+						return;
+					}
+				}
+			}
+			if (pos.player == black)
+			{
+				pos.player = white;
+			}
+			else
+			{
+				pos.player = black;
+			}
+		
+		}
+	}
+}
+
+void ai(int level1)//AI算法，计算对应权值并比较(越简单的模式，对于四子的权值越低，两子的权值越高)
+{
+	pos.player = pve.AI;
+	int weight[15][15] = { 0 };//权值
+	for (int i = 0; i < 15; i++)//行
+	{
+		for (int j = 0; j < 15; j++)//列
+		{
+			if (chessboard[i][j] != 0)
+			{
+				continue;
+			}
+			for (int m = i - 4; m < i + 5; m++)
+			{//行数-4：环境判断防止越界
+				for (int n = j - 4; n < j + 5; n++)
+				{
+					if (m >= 0 && n >= 0 && m <= 14 && n <= 14)
+					{
+						if (chessboard[m][n] == 0)
+						{
+							weight[i][j] = weight[i][j] + 2;
+						}
+						else if (chessboard[m][n] == pve.AI)
+						{
+							weight[i][j] = weight[i][j] + 1;
+						}
+						else if (chessboard[m][n] == pve.player)
+						{
+							weight[i][j] = weight[i][j] - 1;
+						}
+					}
+				}
+			}//环境设置
+//------------------------------------------------------------------------------------------------
+			chessboard[i][j] = pve.AI;//判断AI
+			for (int m = i - 4; m <= i; m++) 
+			{
+				if (m <= 10 && m >= 0) 
+				{
+					if (chessboard[m][j] != pve.player && chessboard[m + 1][j] != pve.player && chessboard[m + 2][j] != pve.player&& chessboard[m + 3][j] != pve.player && chessboard[m + 4][j] != pve.player) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.AI * 5) 
+						{
+							weight[i][j] = weight[i][j] + 10000000/level1;
+						}
+					}//竖向获胜
+					if (chessboard[m][j] != pve.player && chessboard[m + 1][j] != pve.player && chessboard[m + 2][j] != pve.player&& chessboard[m + 3][j] != pve.player && chessboard[m + 4][j] != pve.player) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.AI * 4) 
+						{
+							weight[i][j] = weight[i][j] + 100000/level1;
+						}
+					}//竖向四子
+					if (chessboard[m][j] != pve.player && chessboard[m + 1][j] != pve.player && chessboard[m + 2][j] != pve.player&& chessboard[m + 3][j] != pve.player && chessboard[m + 4][j] != pve.player) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.AI * 3) 
+						{
+							weight[i][j] = weight[i][j] + 3000*level1;
+						}
+					}//竖向三子
+					if (chessboard[m][j] != pve.player && chessboard[m + 1][j] != pve.player && chessboard[m + 2][j] != pve.player&& chessboard[m + 3][j] != pve.player && chessboard[m + 4][j] != pve.player) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.AI * 2) 
+						{
+							weight[i][j] = weight[i][j] + 600*level1;
+						}
+					}//竖向两子
+				}
+			}
+			for (int m = j - 4; m <= j; m++) 
+			{
+				if (m <= 10 && m >= 0) 
+				{
+					if (chessboard[i][m] != pve.player && chessboard[i][m + 1] != pve.player && chessboard[i][m + 2] != pve.player&& chessboard[i][m + 3] != pve.player && chessboard[i][m + 4] != pve.player) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.AI * 5) 
+						{
+							weight[i][j] = weight[i][j] + 10000000/level1;
+						}
+					}//横向获胜
+					if (chessboard[i][m] != pve.player && chessboard[i][m + 1] != pve.player && chessboard[i][m + 2] != pve.player&& chessboard[i][m + 3] != pve.player && chessboard[i][m + 4] != pve.player) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.AI * 4) 
+						{
+							weight[i][j] = weight[i][j] + 100000/level1;
+						}
+					}//横向四子
+					if (chessboard[i][m] != pve.player && chessboard[i][m + 1] != pve.player && chessboard[i][m + 2] != pve.player&& chessboard[i][m + 3] != pve.player && chessboard[i][m + 4] != pve.player) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.AI * 3) 
+						{
+							weight[i][j] = weight[i][j] + 3000*level1;
+						}
+					}//横向三子
+					if (chessboard[i][m] != pve.player && chessboard[i][m + 1] != pve.player && chessboard[i][m + 2] != pve.player&& chessboard[i][m + 3] != pve.player && chessboard[i][m + 4] != pve.player) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.AI * 2) 
+						{
+							weight[i][j] = weight[i][j] + 600*level1;
+						}
+					}//横向两子
+				}
+			}
+			for (int m = i - 4, n = j - 4; m <= i; m++, n++) 
+			{
+				if (m <= 10 && m >= 0 && n <= 10 && n >= 0) 
+				{
+					if (chessboard[m][n] != pve.player && chessboard[m + 1][n + 1] != pve.player && chessboard[m + 2][n + 2] != pve.player&& chessboard[m + 3][n + 3] != pve.player && chessboard[m + 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.AI * 5) 
+						{
+							weight[i][j] = weight[i][j] + 10000000/level1;
+						}
+					}//左上右下斜向获胜
+					if (chessboard[m][n] != pve.player && chessboard[m + 1][n + 1] != pve.player && chessboard[m + 2][n + 2] != pve.player&& chessboard[m + 3][n + 3] != pve.player && chessboard[m + 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.AI * 4) 
+						{
+							weight[i][j] = weight[i][j] + 100000/level1;
+						}
+					}//左上右下斜向四子
+					if (chessboard[m][n] != pve.player && chessboard[m + 1][n + 1] != pve.player && chessboard[m + 2][n + 2] != pve.player&& chessboard[m + 3][n + 3] != pve.player && chessboard[m + 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.AI * 3) 
+						{
+							weight[i][j] = weight[i][j] + 3000*level1;
+						}
+					}//左上右下斜向三子
+					if (chessboard[m][n] != pve.player && chessboard[m + 1][n + 1] != pve.player && chessboard[m + 2][n + 2] != pve.player&& chessboard[m + 3][n + 3] != pve.player && chessboard[m + 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.AI * 2) 
+						{
+							weight[i][j] = weight[i][j] + 600*level1;
+						}
+					}//左上右下斜向两子
+				}
+			}
+			for (int m = i + 4, n = j - 4; m >= i; m--, n++) 
+			{
+				if (m <= 14 && m >= 4 && n <= 10 && n >= 0) 
+				{
+					if (chessboard[m][n] != pve.player && chessboard[m - 1][n + 1] != pve.player && chessboard[m - 2][n + 2] != pve.player&& chessboard[m - 3][n + 3] != pve.player && chessboard[m - 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.AI * 5) 
+						{
+							weight[i][j] = weight[i][j] + 10000000/level1;
+						}
+					}//左下右上斜向获胜
+					if (chessboard[m][n] != pve.player && chessboard[m - 1][n + 1] != pve.player && chessboard[m - 2][n + 2] != pve.player&& chessboard[m - 3][n + 3] != pve.player && chessboard[m - 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.AI * 4) 
+						{
+							weight[i][j] = weight[i][j] + 100000/level1;
+						}
+					}//左下右上斜向四子
+					if (chessboard[m][n] != pve.player && chessboard[m - 1][n + 1] != pve.player && chessboard[m - 2][n + 2] != pve.player&& chessboard[m - 3][n + 3] != pve.player && chessboard[m - 4][n + 4] != pve.player)
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.AI * 3) 
+						{
+							weight[i][j] = weight[i][j] + 3000*level1;
+						}
+					}//左下右上斜向三子
+					if (chessboard[m][n] != pve.player && chessboard[m - 1][n + 1] != pve.player && chessboard[m - 2][n + 2] != pve.player&& chessboard[m - 3][n + 3] != pve.player && chessboard[m - 4][n + 4] != pve.player) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.AI * 2) 
+						{
+							weight[i][j] = weight[i][j] + 600*level1;
+						}					
+					}//左下右上斜向两子
+
+				}
+			}
+//---------------------------------------------------------------------------------------------------------			
+			chessboard[i][j] = pve.player;//判断player
+			for (int m = i - 4; m <= i; m++) 
+			{
+				if (m <= 10 && m >= 0) 
+				{
+					if (chessboard[m][j] != pve.AI && chessboard[m + 1][j] != pve.AI && chessboard[m + 2][j] != pve.AI&& chessboard[m + 3][j] != pve.AI && chessboard[m + 4][j] != pve.AI) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.player * 5) 
+						{
+							weight[i][j] = weight[i][j] + 1000000/level1;
+						}
+					}//竖向获胜
+					if (chessboard[m][j] != pve.AI && chessboard[m + 1][j] != pve.AI && chessboard[m + 2][j] != pve.AI&& chessboard[m + 3][j] != pve.AI && chessboard[m + 4][j] != pve.AI) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.player * 4) 
+						{
+							weight[i][j] = weight[i][j] + 80000 / level1;
+						}
+					}//竖向四子
+					if (chessboard[m][j] != pve.AI && chessboard[m + 1][j] != pve.AI && chessboard[m + 2][j] != pve.AI&& chessboard[m + 3][j] != pve.AI && chessboard[m + 4][j] != pve.AI) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.player * 3) 
+						{
+							weight[i][j] = weight[i][j] + 2000*level1;
+						}
+					}//竖向三子
+					if (chessboard[m][j] != pve.AI && chessboard[m + 1][j] != pve.AI && chessboard[m + 2][j] != pve.AI&& chessboard[m + 3][j] != pve.AI && chessboard[m + 4][j] != pve.AI) 
+					{
+						if (chessboard[m][j] + chessboard[m + 1][j] + chessboard[m + 2][j] + chessboard[m + 3][j] + chessboard[m + 4][j] == pve.player * 2) 
+						{
+							weight[i][j] = weight[i][j] + 400 * level1;
+						}
+					}//竖向两子
+				}
+			}
+			for (int m = j - 4; m <= j; m++) 
+			{
+				if (m <= 10 && m >= 0) 
+				{
+					if (chessboard[i][m] != pve.AI && chessboard[i][m + 1] != pve.AI && chessboard[i][m + 2] != pve.AI&& chessboard[i][m + 3] != pve.AI && chessboard[i][m + 4] != pve.AI)
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.player * 5) 
+						{
+							weight[i][j] = weight[i][j] + 1000000 / level1;
+						}
+					}//横向获胜
+					if (chessboard[i][m] != pve.AI && chessboard[i][m + 1] != pve.AI && chessboard[i][m + 2] != pve.AI&& chessboard[i][m + 3] != pve.AI && chessboard[i][m + 4] != pve.AI) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.player * 4) 
+						{
+							weight[i][j] = weight[i][j] + 80000 / level1;
+						}
+					}//横向四子
+					if (chessboard[i][m] != pve.AI && chessboard[i][m + 1] != pve.AI && chessboard[i][m + 2] != pve.AI&& chessboard[i][m + 3] != pve.AI && chessboard[i][m + 4] != pve.AI) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.player * 3) 
+						{
+							weight[i][j] = weight[i][j] + 2000 * level1;
+						}
+					}//横向三子
+					if (chessboard[i][m] != pve.AI && chessboard[i][m + 1] != pve.AI && chessboard[i][m + 2] != pve.AI&& chessboard[i][m + 3] != pve.AI && chessboard[i][m + 4] != pve.AI) 
+					{
+						if (chessboard[i][m] + chessboard[i][m + 1] + chessboard[i][m + 2] + chessboard[i][m + 3] + chessboard[i][m + 4] == pve.player * 2) 
+						{
+							weight[i][j] = weight[i][j] + 400 * level1;
+						}
+					}//横向两子
+				}
+			}
+
+			for (int m = i - 4, n = j - 4; m <= i; m++, n++) 
+			{
+				if (m <= 10 && m >= 0 && n <= 10 && n >= 0) 
+				{
+					if (chessboard[m][n] != pve.AI && chessboard[m + 1][n + 1] != pve.AI && chessboard[m + 2][n + 2] != pve.AI&& chessboard[m + 3][n + 3] != pve.AI && chessboard[m + 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.player * 5) 
+						{
+							weight[i][j] = weight[i][j] + 1000000 / level1;
+						}
+					}//左下右上斜向获胜
+					if (chessboard[m][n] != pve.AI && chessboard[m + 1][n + 1] != pve.AI && chessboard[m + 2][n + 2] != pve.AI&& chessboard[m + 3][n + 3] != pve.AI && chessboard[m + 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.player * 4) 
+						{
+							weight[i][j] = weight[i][j] + 80000 / level1;
+						}
+					}//左下右上斜向四子
+					if (chessboard[m][n] != pve.AI && chessboard[m + 1][n + 1] != pve.AI && chessboard[m + 2][n + 2] != pve.AI&& chessboard[m + 3][n + 3] != pve.AI && chessboard[m + 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.player * 3) 
+						{
+							weight[i][j] = weight[i][j] + 2000 * level1;
+						}
+					}//左下右上斜向三子
+					if (chessboard[m][n] != pve.AI && chessboard[m + 1][n + 1] != pve.AI && chessboard[m + 2][n + 2] != pve.AI&& chessboard[m + 3][n + 3] != pve.AI && chessboard[m + 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m + 1][n + 1] + chessboard[m + 2][n + 2] + chessboard[m + 3][n + 3] + chessboard[m + 4][n + 4] == pve.player * 2) 
+						{
+							weight[i][j] = weight[i][j] + 400 * level1;
+						}
+					}//左下右上斜向两子
+
+				}
+			}
+			for (int m = i + 4, n = j - 4; m >= i; m--, n++) 
+			{
+				if (m <= 14 && m >= 4 && n <= 10 && n >= 0) 
+				{
+					if (chessboard[m][n] != pve.AI && chessboard[m - 1][n + 1] != pve.AI && chessboard[m - 2][n + 2] != pve.AI&& chessboard[m - 3][n + 3] != pve.AI && chessboard[m - 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.player * 5) 
+						{
+							weight[i][j] = weight[i][j] + 1000000 / level1;
+						}
+					}//左下右上斜向获胜
+					if (chessboard[m][n] != pve.AI && chessboard[m - 1][n + 1] != pve.AI && chessboard[m - 2][n + 2] != pve.AI&& chessboard[m - 3][n + 3] != pve.AI && chessboard[m - 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.player * 4) 
+						{
+							weight[i][j] = weight[i][j] + 80000 / level1;
+						}
+					}//左下右上斜向四子
+					if (chessboard[m][n] != pve.AI && chessboard[m - 1][n + 1] != pve.AI && chessboard[m - 2][n + 2] != pve.AI&& chessboard[m - 3][n + 3] != pve.AI && chessboard[m - 4][n + 4] != pve.AI) 
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.player * 3) 
+						{
+							weight[i][j] = weight[i][j] + 2000 * level1;
+						}
+					}//左下右上斜向三子
+					if (chessboard[m][n] != pve.AI && chessboard[m - 1][n + 1] != pve.AI && chessboard[m - 2][n + 2] != pve.AI&& chessboard[m - 3][n + 3] != pve.AI && chessboard[m - 4][n + 4] != pve.AI)
+					{
+						if (chessboard[m][n] + chessboard[m - 1][n + 1] + chessboard[m - 2][n + 2] + chessboard[m - 3][n + 3] + chessboard[m - 4][n + 4] == pve.player * 2) 
+						{
+							weight[i][j] = weight[i][j] + 400 * level1;
+						}
+					}//左下右上斜向两子
+
+				}
+			}
+			//------------------------------------------------------------------------------------------------
+			chessboard[i][j] = 0;
+		}
+	}
+	int a = 0, b = 0;
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 15; j++)
+		{
+			if (weight[i][j] > weight[a][b])
+			{
+				a = i, b = j;
+			}
+		}
+	}
+	printf("%d ", weight[a][b]);
+	printf("%d\n", weight[a - 1][b + 2]);
+//AI计算----------------------------------------------------------------------------------------------
+	if (mode != 3)
+	{
+		for (int m = 0; m < 15; m++)
+		{
+			for (int n = 0; n < 15; n++)
+			{
+				if (chessboard[m][n] != 0)
+				{
+					goto here;
+				}
+				if (m == 14 && n == 14)
+				{
+					a = 7, b = 7;
+				}
+			}
+		}
+	}
+	srand(time(NULL));
+	if (mode == 3)
+	{
+		for (int m = 0; m < 15; m++)
+		{
+			for (int n = 0; n < 15; n++) 
+			{
+				if (chessboard[m][n] != 0)
+				{
+					goto here;
+				}					
+				if (m == 14 && n == 14) 
+				{ 
+					a = rand() % 14, b = rand() % 14;
+				}
+			}
+		}
+	}
+here:;
+	chessboard[a][b] = pve.AI;//ai落子
+	FILE* fp;
+	fp = fopen("duiju.txt", "a");
+	fprintf(fp, "%d %d %d\n", a, b, pos.player);//行、列、行棋方
+	fclose(fp);
+	//以上为下棋操作
+	if (judge(a, b)) 
+	{
+		pos.isshow = false;
+		if (mode == 2)
+		{
+			draw_PVE();
+		}
+		else if (mode == 3)
+		{
+			draw_EVE();
+		}
+		int d = 0;
+		if (mode == 2)
+		{
+			if (heqi)
+			{
+				d = MessageBox(GetHWnd(), "游戏结束", "和棋，是否再来一把", MB_OKCANCEL);
+				heqi = false;
+				panduan = 0;
+			}
+			else
+			{
+				d = MessageBox(GetHWnd(), "游戏结束", "你输了，是否再来一把", MB_OKCANCEL);
+				panduan = 0;
+			}//注：判断PVE获胜的部分在函数pve_press中
+		}
+		if (mode == 3)
+		{
+			if (heqi)
+			{
+				d = MessageBox(GetHWnd(), "游戏结束", "和棋，是否再来一把", MB_OKCANCEL);
+				heqi = false;
+			}
+			else if (pos.player == black)
+			{
+				d = MessageBox(GetHWnd(), "游戏结束", "黑棋胜利，是否再来一把", MB_OKCANCEL);
+				heqi = false;
+
+			}
+			else if (pos.player == white)
+			{
+				d = MessageBox(GetHWnd(), "游戏结束", "白棋胜利，是否再来一把", MB_OKCANCEL);
+				heqi = false;
+			}
+		}
+		if (d == IDOK)
+		{
+			FILE* fp;
+			fp = fopen("duiju.txt", "w");
+			fclose(fp);
+			pos.isshow = false;
+			result = 0;
+			pve.turn = 3;
+			for (int i = 0; i < 15; i++)
+			{
+				for (int j = 0; j < 15; j++)
+				{
+					chessboard[i][j] = 0;
+					dierbu = 2;
+				}
+			}
+			return;
+		}
+		if (d == IDCANCEL)
+		{
+			result = 0;
+			for (int i = 0; i < 15; i++)
+			{
+				for (int j = 0; j < 15; j++)
+				{
+					chessboard[i][j] = 0;
+					dierbu = 2;
+				}
+			}
+			mode = 0;
+		}
+	}
+	pve.turn = 1;
+	Sleep(100);
+}
+
+void fupan()
+{
+	FILE* fp;
+	fp = fopen("duiju.txt", "r");
+	int a, b;
+	while (!feof(fp))
+	{
+		fscanf(fp, "%d ", &a);
+		fscanf(fp, "%d ", &b);
+		fscanf(fp, "%d\n", &chessboard[a][b]);
+		BeginBatchDraw();
+		draw_fupan();
+		EndBatchDraw();
+		Sleep(100);
+	}
+	fclose(fp);
+}//复盘
+
+int main()
+{
+	open_welcome_interface();
+	set_button_on_mode();
+	ExMessage msg;//存储鼠标消息的变量
+	while (true)
+	{
+		if (mode == 0)//主界面
+		{
+			BeginBatchDraw();
+			draw0();
+			EndBatchDraw();
+			if (peekmessage(&msg, EX_MOUSE))
+			{
+				switch (msg.message)
+				{
+				case WM_MOUSEMOVE:
+					button_move(&msg);
+					break;
+				case WM_LBUTTONDOWN:
+					button_down(&msg);
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		if (mode == 1)//PVP界面
+		{	
+			BeginBatchDraw();
+			draw_PVP();
+			EndBatchDraw();
+			ExMessage msg;
+			if (peekmessage(&msg, EX_MOUSE)) 
+			{
+				switch (msg.message) 
+				{
+				case WM_MOUSEMOVE:
+					mouse_move(&msg);
+					break;
+				case WM_LBUTTONDOWN:
+					mouse_press(&msg);
+					break;
+				default:
+					break;
+				}
+			}			
+		}
+		if (mode == 2)//PVE界面
+		{
+			BeginBatchDraw();
+			draw_PVE();
+			EndBatchDraw();
+			if (panduan== 0)
+			{
+				if (peekmessage(&msg, EX_MOUSE))
+				{	
+					choose_level(&msg);
+				}
+			}
+			level1 = levels.level;//设置ai算法难度
+			if (result == 0&&levels.level!=0) 
+			{
+				pve.turn = 3;
+				if (peekmessage(&msg, EX_MOUSE)) 
+				{				
+					choose_order(&msg);
+				}
+			}
+
+			if (result != 0) 
+			{
+				if (result == IDOK) 
+				{
+					pve.AI = black;
+					pve.player = white;
+					pve.turn = 0;
+					result = 3;
+				}
+				if (result == IDCANCEL)
+				{
+					pve.AI = white;
+					pve.player = black;
+					pve.turn = 1;
+					result = 3;
+				}
+				if (pve.turn == 1) 
+				{
+					ExMessage msg;
+					if (peekmessage(&msg, EX_MOUSE)) 
+					{
+						switch (msg.message) 
+						{
+						case WM_MOUSEMOVE:
+							mouse_move(&msg);
+							break;
+						case WM_LBUTTONDOWN:
+							pve_press(&msg);
+							break;
+						default:
+							break;
+						}
+					}
+				}//玩家下棋
+				else if (pve.turn == 0) //电脑下棋
+				{
+					ai(level1);
+				}
+			}
+		}
+		if (mode == 3)//EVE界面
+		{
+			dierbu = 0;
+			BeginBatchDraw();
+			draw_EVE();
+			EndBatchDraw();
+			pve.AI = black;
+			pve.player = white;
+			ai(hard);//直接上困难模式
+			if (dierbu != 2) 
+			{
+				BeginBatchDraw();
+				draw_EVE();
+				EndBatchDraw();
+				pve.AI =  white;
+				pve.player = black;
+				ai(hard);
+			}
+		}
+		if (mode == 4)//复盘
+		{
+			fupan();
+			int qu = MessageBox(GetHWnd(), "是否再次复盘", "复盘结束", MB_OKCANCEL);
+			if (qu == IDCANCEL) 
+			{
+				for (int i = 0; i < 15; i++) 
+				{
+					for (int j = 0; j < 15; j++) 
+					{
+						chessboard[i][j] = 0;
+					}
+				}//扫干净棋盘
+				mode = 0;
+			}
+			if (qu == IDOK) 
+			{
+				for (int i = 0; i < 15; i++) 
+				{
+					for (int j = 0; j < 15; j++) 
+					{
+						chessboard[i][j] = 0;
+					}
+				}//扫干净棋盘
+				mode = 4;
+			}
+		}		
+	}
+	getchar();//延迟退出便于调试
+	return 0;
+}

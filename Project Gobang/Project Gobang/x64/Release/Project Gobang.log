@@ -1,0 +1,221 @@
+﻿  fupan.cpp
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\fupan.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [13]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,35): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): message : 尝试匹配参数列表“(HWND, const char [13], const char [9], long)”时
+  main.cpp
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\fupan.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [13]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,35): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): message : 尝试匹配参数列表“(HWND, const char [13], const char [9], long)”时
+  play.cpp
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\fupan.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [13]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,35): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): message : 尝试匹配参数列表“(HWND, const char [13], const char [9], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(150,5): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [19]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(150,27): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(150,5): message : 尝试匹配参数列表“(HWND, const char [19], const char [5], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(165,11): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(165,33): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(165,11): message : 尝试匹配参数列表“(HWND, const char [9], const char [21], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(223,5): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [19]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(223,27): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(223,5): message : 尝试匹配参数列表“(HWND, const char [19], const char [5], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(237,18): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [22]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(237,40): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(237,18): message : 尝试匹配参数列表“(HWND, const char [22], const char [9], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(267,18): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [22]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(267,40): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(267,18): message : 尝试匹配参数列表“(HWND, const char [22], const char [9], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(653,12): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(694,9): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(694,31): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(694,9): message : 尝试匹配参数列表“(HWND, const char [9], const char [19], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(700,9): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(700,31): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(700,9): message : 尝试匹配参数列表“(HWND, const char [9], const char [21], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(708,9): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(708,31): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(708,9): message : 尝试匹配参数列表“(HWND, const char [9], const char [19], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(713,9): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(713,31): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(713,9): message : 尝试匹配参数列表“(HWND, const char [9], const char [23], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(719,9): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [9]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(719,31): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\play.cpp(719,9): message : 尝试匹配参数列表“(HWND, const char [9], const char [23], long)”时
+  show.cpp
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\fupan.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [13]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,35): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\main.cpp(203,13): message : 尝试匹配参数列表“(HWND, const char [13], const char [9], long)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,2): error C2665: “loadimage”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(259,6): message : 可能是“void loadimage(IMAGE *,LPCTSTR,LPCTSTR,int,int,bool)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,2): message : “void loadimage(IMAGE *,LPCTSTR,LPCTSTR,int,int,bool)”: 无法将参数 2 从“const char [15]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,25): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(258,6): message : 或    “void loadimage(IMAGE *,LPCTSTR,int,int,bool)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,2): message : “void loadimage(IMAGE *,LPCTSTR,int,int,bool)”: 无法将参数 2 从“const char [15]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,25): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(11,2): message : 尝试匹配参数列表“(IMAGE *, const char [15], int, int)”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [14]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,21): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [14]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,21): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(43,2): message : 尝试匹配参数列表“(int, int, const char [14])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [4]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [4]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(51,2): message : 尝试匹配参数列表“(int, int, const char [4])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [4]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [4]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(59,2): message : 尝试匹配参数列表“(int, int, const char [4])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [4]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [4]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(67,2): message : 尝试匹配参数列表“(int, int, const char [4])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(75,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [20]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [20]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(82,2): message : 尝试匹配参数列表“(int, int, const char [20])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [20]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [20]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(83,2): message : 尝试匹配参数列表“(int, int, const char [20])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [13]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [13]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(90,2): message : 尝试匹配参数列表“(int, int, const char [13])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(93,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(94,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(95,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,4): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,4): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [9]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,24): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,4): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [9]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,24): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(123,4): message : 尝试匹配参数列表“(int, int, const char [9])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,4): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,4): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [9]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,24): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,4): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [9]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,24): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(129,4): message : 尝试匹配参数列表“(int, int, const char [9])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [9]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [9]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(160,2): message : 尝试匹配参数列表“(int, int, const char [9])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(163,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,2): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,2): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [5]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,22): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,2): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [5]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,22): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(164,2): message : 尝试匹配参数列表“(int, int, const char [5])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,4): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,4): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [9]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,24): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,4): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [9]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,24): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(207,4): message : 尝试匹配参数列表“(int, int, const char [9])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,4): error C2665: “outtextxy”: 没有重载函数可以转换所有参数类型
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(226,6): message : 可能是“void outtextxy(int,int,TCHAR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,4): message : “void outtextxy(int,int,TCHAR)”: 无法将参数 3 从“const char [9]”转换为“TCHAR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,24): message : 没有使该转换得以执行的上下文
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include\easyx.h(225,6): message : 或    “void outtextxy(int,int,LPCTSTR)”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,4): message : “void outtextxy(int,int,LPCTSTR)”: 无法将参数 3 从“const char [9]”转换为“LPCTSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,24): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(213,4): message : 尝试匹配参数列表“(int, int, const char [9])”时
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(316,12): error C2664: “int MessageBoxW(HWND,LPCWSTR,LPCWSTR,UINT)”: 无法将参数 2 从“const char [51]”转换为“LPCWSTR”
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(316,34): message : 指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\winuser.h(9161,1): message : 参见“MessageBoxW”的声明
+C:\Users\wyc\Desktop\Project Gobang\Project Gobang\show.cpp(316,12): message : 尝试匹配参数列表“(HWND, const char [51], const char [5], long)”时

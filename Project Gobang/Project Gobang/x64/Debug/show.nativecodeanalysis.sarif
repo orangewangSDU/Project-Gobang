@@ -1,0 +1,115 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C6031",
+          "message": {
+            "text": "返回值被忽略: “getchar”。"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/wyc/Desktop/Project Gobang/Project Gobang/main.cpp"
+                },
+                "region": {
+                  "startLine": 228,
+                  "startColumn": 2,
+                  "endLine": 228,
+                  "endColumn": 9
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "main",
+                  "decoratedName": "main",
+                  "kind": "function"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.34.31937.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/wyc/Desktop/Project Gobang/Project Gobang/main.cpp"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "118682aa4342527b3fa873bba60018b8ac5392dbbb6189a088140fcd20c58581"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/wyc/desktop/project gobang/project gobang/show.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "587767296a2aabfe82ca908b7627f5168df4ddb169de179109dd0b882612d33b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/program files/microsoft visual studio/2022/community/vc/auxiliary/vs/include/graphics.h"
+          },
+          "hashes": {
+            "sha-256": "463486e44fb2c9afc1b9a4b8734f55ab32964843bbe18081b81d8dc4689d4037"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/program files/microsoft visual studio/2022/community/vc/auxiliary/vs/include/easyx.h"
+          },
+          "hashes": {
+            "sha-256": "4191c00c18579aa242a4c2cdcbdf37b8d0558f8356360dddf31f6ba7b9bcd47e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/wyc/desktop/project gobang/project gobang/show.h"
+          },
+          "hashes": {
+            "sha-256": "3f09a82ef0a43090333049475872dc2d45e05e79e2cc50509db000c56c3caef9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/wyc/desktop/project gobang/project gobang/play.h"
+          },
+          "hashes": {
+            "sha-256": "67a5f338c38e06f87b086fc5541cc5b2944778ad6c9d2b43a10b4f1361df7ba0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/wyc/desktop/project gobang/project gobang/fupan.h"
+          },
+          "hashes": {
+            "sha-256": "4316480f4cfca80bbf0294ef8d24f9679e3c2e9e8c59e4d98e743ef7f1cc2a55"
+          }
+        }
+      ]
+    }
+  ]
+}
